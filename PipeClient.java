@@ -14,7 +14,7 @@ public class PipeClient {
 
 		for (int i = 0; i < numberOfMessages; i++) {
 			UUID id = UUID.randomUUID();
-			String returnFilePath = "/tmp/"+id;
+			String returnFilePath = "/tmp/output";
 			if (!new File(returnFilePath).exists()) {
 				PrintWriter writer = new PrintWriter(returnFilePath, "UTF-8");
 				writer.close();
@@ -33,7 +33,9 @@ public class PipeClient {
 			while (true) {
 
 				String line = reader.readLine();
-				if (line != null) {
+				System.out.println("fdjsklaf"+ line);
+				if (line != null && line.contains(id.toString())) {
+					System.out.println(line);
 					break;
 				}
 

@@ -18,7 +18,7 @@ public class MessageReceiver extends Thread implements MessageSender<String> {
 	private void setup(String id, String message) {
 		this.id = id;
 		this.message = message;
-		this.outputPipeName = "/tmp/"+id;
+		this.outputPipeName = "/tmp/output";
 		this.start();
 	}
 
@@ -29,8 +29,9 @@ public class MessageReceiver extends Thread implements MessageSender<String> {
 	public void sendMessage(String str) {
 		try {
 			PrintWriter printWriter=new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputPipeName)));
-			printWriter.println(str);
-			printWriter.flush();
+			// System.out.println(id+":"+str);
+			printWriter.println(id+":"+str);
+			// printWriter.flush();
 			printWriter.close();
 		} catch (Exception e) {
 			System.out.println("Cannot write to " + outputPipeName +".");
