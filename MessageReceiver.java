@@ -28,10 +28,9 @@ public class MessageReceiver extends Thread implements MessageSender<String> {
 
 	public void sendMessage(String str) {
 		try {
-			PrintWriter printWriter=new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputPipeName)));
-			// System.out.println(id+":"+str);
+			PrintWriter printWriter=new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputPipeName,true)));
 			printWriter.println(id+":"+str);
-			// printWriter.flush();
+			printWriter.flush();
 			printWriter.close();
 		} catch (Exception e) {
 			System.out.println("Cannot write to " + outputPipeName +".");

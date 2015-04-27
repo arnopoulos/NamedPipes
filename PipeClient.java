@@ -20,6 +20,9 @@ public class PipeClient {
 				writer.close();
 			}
 
+			BufferedReader reader = new BufferedReader(new FileReader(returnFilePath));
+			reader.skip(Long.MAX_VALUE);
+
 			double startTime = (double)System.currentTimeMillis();
 			PrintWriter serverWriter = new PrintWriter(new BufferedOutputStream(new FileOutputStream("/tmp/input",true)));
 			serverWriter.println(id+":Hello Andrew");
@@ -29,20 +32,19 @@ public class PipeClient {
 
 			sumTime += endTime - startTime;
 			
-			BufferedReader reader = new BufferedReader(new FileReader(returnFilePath));
+			
 			while (true) {
 
 				String line = reader.readLine();
-				System.out.println("fdjsklaf"+ line);
 				if (line != null && line.contains(id.toString())) {
-					System.out.println(line);
 					break;
 				}
 
 			}
+			reader.close();
 		}
 		double averageTime = sumTime / numberOfMessages;
-		System.out.println(averageTime);
+		System.out.println(averageTime / 1000.0);
 		
 	}
 
